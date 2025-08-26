@@ -24,14 +24,11 @@ const StudentWaiting = () => {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `${ApiUrl}/purchases/complete`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${ApiUrl}/purchases/complete`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setExam(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
