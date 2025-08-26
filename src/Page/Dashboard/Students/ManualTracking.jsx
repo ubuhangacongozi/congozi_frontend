@@ -93,28 +93,23 @@ const ManualTracking = () => {
               <p className="capitalize font-bold text-lg text-center">
                 Shyiramo kode yawe y'ikizamini yemewe
               </p>
-              <div className="w-full md:px-3 md:pb-16 flex justify-center items-center px-6 pb-24">
-  <div
-    className={`flex border-2 border-blue-500 rounded-full overflow-hidden transition-all duration-300 ${
-      isSidebarExpanded ? "md:w-[calc(100%-240px)]" : "md:w-[calc(100%-309px)]"
-    } w-full md:w-1/2`}
-  >
-    <input
-      type="search"
-      value={examCode}
-      onChange={(e) => setExamCode(e.target.value)}
-      placeholder="Shakisha"
-      className="px-5 py-2 w-full outline-none"
-    />
-    <button
-      onClick={handleSearch}
-      className="bg-blue-500 px-5 text-white cursor-pointer"
-    >
-      Shaka
-    </button>
-  </div>
-</div>
-
+              <div className="w-full md:px-3 md:pb-16 flex justify-center items-center px-6 pb-24 relative">
+                <input
+                  type="search"
+                  value={examCode}
+                  onChange={(e) => setExamCode(e.target.value)}
+                  placeholder="Shakisha"
+                  className="border-2 px-5 border-blue-500 p-2 rounded-full md:w-1/2 w-full outline-none"
+                />
+                <button
+                  onClick={handleSearch}
+                  className={`absolute bg-blue-500 cursor-pointer rounded-r-full p-2 text-white ${
+                    isSidebarExpanded ? "md:right-[240px]" : "md:right-[309px]"
+                  } right-6`}
+                >
+                  Shaka
+                </button>
+              </div>
             </div>
           </div>
         ) : notFound ? (
