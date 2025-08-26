@@ -1,11 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MdOutlineContentPasteSearch } from "react-icons/md";
 import Police from "../../../assets/Policelogo.png";
 import WelcomeDear from "../../../Components/Cards/WelcomeDear";
 import ContinueCard from "../../../Components/Cards/ContinueCard";
 import ConfirmCard from "../../../Components/Cards/ConfirmCard";
-import { SidebarContext } from "../../../Components/Layouts/UsersLay";
 import axios from "axios";
 const SchoolAccessedExam = () => {
   const [isSearched, setIsSearched] = useState(false);
@@ -16,7 +15,6 @@ const SchoolAccessedExam = () => {
   const [showConfirmCard, setShowConfirmCard] = useState(false);
   const [exam, setExam] = useState({ data: [] });
   const navkwigate = useNavigate();
-   const { isSidebarExpanded } = useContext(SidebarContext);
   const location = useLocation();
   const ApiUrl = import.meta.env.VITE_API_BASE_URL;
   const params = new URLSearchParams(location.search);
@@ -111,29 +109,7 @@ const SchoolAccessedExam = () => {
               <p className="capitalize font-bold text-lg text-center">
                 Shyiramo kode yawe y'ikizamini yemewe
               </p>
-              <div className="w-full md:px-3 md:pb-16 flex justify-center items-center px-6 pb-24">
-  <div
-    className={`flex border-2 border-blue-500 rounded-full overflow-hidden transition-all duration-300 ${
-      isSidebarExpanded ? "md:w-[calc(100%-240px)]" : "md:w-[calc(100%-309px)]"
-    } w-full md:w-1/2`}
-  >
-    <input
-      type="search"
-      value={examId}
-      onChange={(e) => setExamId(e.target.value)}
-      placeholder="Shakisha"
-      className="px-5 py-2 w-full outline-none"
-    />
-    <button
-      onClick={handleSearch}
-      className="bg-blue-500 px-5 text-white cursor-pointer"
-    >
-      Shaka
-    </button>
-  </div>
-</div>
-
-              {/* <div className="w-full md:px-3 md:pb-16 flex justify-center items-center px-6 pb-24 relative">
+              <div className="w-full md:px-3 md:pb-16 flex justify-center items-center px-6 pb-24 relative">
                 <input
                   type="search"
                   value={examId}
@@ -147,7 +123,7 @@ const SchoolAccessedExam = () => {
                 >
                   Shaka
                 </button>
-              </div> */}
+              </div>
             </div>
           </div>
         ) : (
