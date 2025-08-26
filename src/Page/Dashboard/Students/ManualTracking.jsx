@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdOutlineContentPasteSearch } from "react-icons/md";
 import Police from "../../../assets/Policelogo.png";
@@ -6,7 +6,6 @@ import WelcomeDear from "../../../Components/Cards/WelcomeDear";
 import ContinueCard from "../../../Components/Cards/ContinueCard";
 import ConfirmCard from "../../../Components/Cards/ConfirmCard";
 import axios from "axios";
-import { SidebarContext } from "../../../Components/Layouts/UsersLay";
 
 const ManualTracking = () => {
   const [isSearched, setIsSearched] = useState(false);
@@ -16,10 +15,7 @@ const ManualTracking = () => {
   const [showContinueCard, setShowContinueCard] = useState(false);
   const [showConfirmCard, setShowConfirmCard] = useState(false);
   const [notFound, setNotFound] = useState(false);
-  const navkwigate = useNavigate();
-  
-  // Get sidebar state from context
-  const { isSidebarExpanded } = useContext(SidebarContext);
+  const navigate = useNavigate();
 
   const ApiUrl = import.meta.env.VITE_API_BASE_URL;
   useEffect(() => {
@@ -56,17 +52,17 @@ const ManualTracking = () => {
 
   const handleNotReady = () => {
     setIsSearched(false);
-    navkwigate(`/students/tracking`);
+    navigate(`/students/tracking`);
   };
 
   const handleStartExam = () => {
     if (examDetails?.type === "kwiga" || examDetails?.type === "kwiga") {
-      navkwigate(`/livekwiga?code=${examCode}`);
+      navigate(`/livekwiga?code=${examCode}`);
     } else if (
       examDetails?.type === "gukora" ||
       examDetails?.type === "gukora"
     ) {
-      navkwigate(`/liveExam?code=${examCode}`);
+      navigate(`/liveExam?code=${examCode}`);
     } else {
       alert("Invalid exam type.");
     }
@@ -93,22 +89,22 @@ const ManualTracking = () => {
               <p className="capitalize font-bold text-lg text-center">
                 Shyiramo kode yawe y'ikizamini yemewe
               </p>
-              <div className="w-full md:px-3 md:pb-16 flex justify-center items-center px-6 pb-24 relative">
-                <input
-                  type="search"
-                  value={examCode}
-                  onChange={(e) => setExamCode(e.target.value)}
-                  placeholder="Shakisha"
-                  className="border-2 px-5 border-blue-500 p-2 rounded-full md:w-1/2 w-full outline-none"
-                />
-                <button
-                  onClick={handleSearch}
-                  className={`absolute bg-blue-500 cursor-pointer rounded-r-full p-2 text-white ${
-                    isSidebarExpanded ? "md:right-[240px]" : "md:right-[309px]"
-                  } right-6`}
-                >
-                  Shaka
-                </button>
+              <div className="w-full md:px-3 md:pb-16 flex justify-center items-center px-6 pb-24">
+                <div className="flex w-full md:w-1/2">
+                  <input
+                    type="search"
+                    value={examCode}
+                    onChange={(e) => setExamCode(e.target.value)}
+                    placeholder="Shakisha"
+                    className="border-2 px-5 border-blue-500 p-2 rounded-l-full w-full outline-none"
+                  />
+                  <button
+                    onClick={handleSearch}
+                    className="bg-blue-500 cursor-pointer rounded-r-full px-6 text-white"
+                  >
+                    Shaka
+                  </button>
+                </div>
               </div>
             </div>
           </div>

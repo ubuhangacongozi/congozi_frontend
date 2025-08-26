@@ -74,17 +74,17 @@ const StudentWaiting = () => {
     (currentPage + 1) * examsPerPage
   );
 
-  const navkwigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     if (params.has("accessCode")) {
-      navkwigate(location.pathname, { replace: true });
+      navigate(location.pathname, { replace: true });
     }
   }, []);
   const handleDoExam = (exam) => {
     if (exam.accessCode) {
-      navkwigate(`/students/waitingexams?accessCode=${exam.accessCode}`, {
+      navigate(`/students/waitingexams?accessCode=${exam.accessCode}`, {
         replace: true,
       });
       setIsExamStarted(true);

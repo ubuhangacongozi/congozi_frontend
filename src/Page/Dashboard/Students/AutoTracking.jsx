@@ -16,9 +16,8 @@ const AutoTracking = () => {
   const [showContinueCard, setShowContinueCard] = useState(false);
   const [showConfirmCard, setShowConfirmCard] = useState(false);
   const [exam, setExam] = useState({ data: [] });
-  const navkwigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
-
   const params = new URLSearchParams(location.search);
 
   useEffect(() => {
@@ -65,17 +64,17 @@ const AutoTracking = () => {
   const handleNotReady = () => {
     setExamCode("");
     setIsSearched(false);
-    navkwigate("/students/waitingexams", { replace: true });
+    navigate("/students/waitingexams", { replace: true });
   };
 
   const handleStartExam = () => {
     if (examDetails?.type === "kwiga" || examDetails?.type === "kwiga") {
-      navkwigate(`/livekwiga?code=${examCode}`);
+      navigate(`/livekwiga?code=${examCode}`);
     } else if (
       examDetails?.type === "gukora" ||
       examDetails?.type === "gukora"
     ) {
-      navkwigate(`/liveExam?code=${examCode}`);
+      navigate(`/liveExam?code=${examCode}`);
     } else {
       alert("Invalid exam type.");
     }
@@ -113,21 +112,21 @@ const AutoTracking = () => {
             <div className="flex justify-center items-center">
               <img src={Police} alt="Police Logo" className="w-24 py-3" />
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="w-full md:px-3 md:pb-16 flex flex-col justify-center items-center px-6 pb-24">
               <p className="capitalize font-bold text-lg text-center">
                 Shyiramo kode yawe y'ikizamini yemewe
               </p>
-              <div className="w-full md:px-3 md:pb-16 flex justify-center items-center px-6 pb-24 relative">
+              <div className="flex w-full md:w-1/2">
                 <input
                   type="search"
                   value={examCode}
                   onChange={(e) => setExamCode(e.target.value)}
                   placeholder="Shakisha"
-                  className="border-2 px-5 border-blue-500 p-2 rounded-full md:w-1/2 w-full outline-none"
+                  className="border-2 px-5 border-blue-500 p-2 rounded-l-full w-full outline-none"
                 />
                 <button
                   onClick={handleSearch}
-                  className="absolute md:right-[240px] right-6 bg-blue-500 cursor-pointer rounded-r-full p-2 text-white"
+                  className="bg-blue-500 cursor-pointer rounded-r-full px-6 text-white"
                 >
                   Shaka
                 </button>
