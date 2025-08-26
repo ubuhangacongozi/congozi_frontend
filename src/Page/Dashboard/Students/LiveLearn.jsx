@@ -209,7 +209,7 @@ const LiveLearn = () => {
               timeLeft={
                 <ExamTimer
                   accessCode={examCode}
-                  duration={2400}
+                  duration={1800}
                   onTimeout={handleTimeout}
                 />
               }
