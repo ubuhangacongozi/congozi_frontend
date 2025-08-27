@@ -232,7 +232,8 @@ const LiveExam = () => {
 
       localStorage.setItem(`examFinished_${examCode}_${paidExam._id}`, "true");
 
-      navkwigate(location.pathname, { replace: true });
+      // Remove the replace: true navigation to prevent state loss
+      // navkwigate(location.pathname, { replace: true });
     } catch (error) {
       console.error("Submission error:", error);
       errors(
@@ -284,12 +285,7 @@ const LiveExam = () => {
             <button
               onClick={() => {
                 setShowCongrats(false);
-                localStorage.removeItem(
-                  `selectedOptions_${examCode}_${paidExam._id}`
-                );
-                localStorage.removeItem(
-                  `examTimeLeft_${examCode}_${paidExam._id}`
-                );
+                // Don't remove localStorage items yet, keep them for the results view
               }}
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
             >
@@ -307,10 +303,7 @@ const LiveExam = () => {
                 localStorage.removeItem(
                   `examTimeLeft_${examCode}_${paidExam._id}`
                 );
-                navkwigate("/students/waitingexams", {
-                  replace: true,
-                  state: { reset: true },
-                });
+                navkwigate("/students/waitingexams");
               }}
               className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
             >
@@ -620,10 +613,7 @@ const LiveExam = () => {
                 localStorage.removeItem(
                   `examTimeLeft_${examCode}_${paidExam._id}`
                 );
-                navkwigate("/students/waitingexams", {
-                  replace: true,
-                  state: { reset: true },
-                });
+                navkwigate("/students/waitingexams");
               }}
               className="bg-red-500 text-white py-2 px-4 rounded"
             >

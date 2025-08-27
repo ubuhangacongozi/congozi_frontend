@@ -24,14 +24,11 @@ const StudentWaiting = () => {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `${ApiUrl}/purchases/complete`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${ApiUrl}/purchases/complete`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setExam(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -42,9 +39,15 @@ const StudentWaiting = () => {
     fetchData();
   }, []);
 
+  // This useEffect should check for accessCode on component mount and URL changes
   useEffect(() => {
-    if (accessCode) setIsExamStarted(true);
-  }, [accessCode]);
+    const params = queryString.parse(location.search);
+    if (params.accessCode) {
+      setIsExamStarted(true);
+    } else {
+      setIsExamStarted(false);
+    }
+  }, [location.search]); // Watch for changes in the URL search params
 
   useEffect(() => {
     const updateExamsPerPage = () => {
@@ -58,14 +61,12 @@ const StudentWaiting = () => {
   const filteredExams = exam.data.filter(
     (exam) =>
       (type === "" ||
-        exam.purchasedItem.type.toLowerCase().includes(type.toLowerCase())) &&
-      (fees === "" || exam.purchasedItem.fees.toString().includes(fees)) &&
+        exam.itemId.type.toLowerCase().includes(type.toLowerCase())) &&
+      (fees === "" || exam.itemId.fees.toString().includes(fees)) &&
       (searchTerm === "" ||
-        exam.purchasedItem.type
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase()) ||
-        exam.purchasedItem.fees.toString().includes(searchTerm) ||
-        exam.purchasedItem.number.includes(searchTerm))
+        exam.itemId.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        exam.itemId.fees.toString().includes(searchTerm) ||
+        exam.itemId.number.includes(searchTerm))
   );
 
   const totalPages = Math.ceil(filteredExams.length / examsPerPage);
@@ -76,18 +77,10 @@ const StudentWaiting = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    if (params.has("accessCode")) {
-      navigate(location.pathname, { replace: true });
-    }
-  }, []);
   const handleDoExam = (exam) => {
     if (exam.accessCode) {
-      navigate(`/students/waitingexams?accessCode=${exam.accessCode}`, {
-        replace: true,
-      });
-      setIsExamStarted(true);
+      // Use replace: false to allow the URL change to be detected
+      navigate(`/students/waitingexams?accessCode=${exam.accessCode}`);
     }
   };
 

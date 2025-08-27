@@ -3,36 +3,20 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { useUserContext } from "./Components/useUserContext";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import FullPageLoader from "./Components/FullPageLoader";
-const LandingLay = lazy(() =>
-  import(
-    "./Components/Layouts/LandingLay"
-  )
-);
 
+// All your lazy imports remain the same
+const LandingLay = lazy(() => import("./Components/Layouts/LandingLay"));
 const UserStudent = lazy(() =>
-  import(
-    "./Components/Users/Students/UserStudent"
-  )
+  import("./Components/Users/Students/UserStudent")
 );
-
-const UserAdmin = lazy(() =>
-  import(
-    "./Components/Users/Admins/UserAdmin"
-  )
-);
-
-const UserSchool = lazy(() =>
-  import(
-    "./Components/Users/Schools/UserSchool"
-  )
-);
+const UserAdmin = lazy(() => import("./Components/Users/Admins/UserAdmin"));
+const UserSchool = lazy(() => import("./Components/Users/Schools/UserSchool"));
 const Home = lazy(() => import("./Page/Landing/Home"));
 const Services = lazy(() => import("./Page/Landing/Services"));
 const Register = lazy(() => import("./Page/Landing/Register"));
 const ContactUs = lazy(() => import("./Page/Landing/ContactUs"));
 const Login = lazy(() => import("./Page/Landing/Login"));
 const RestPassword = lazy(() => import("./Page/Landing/RestPassword"));
-
 const StudentHome = lazy(() => import("./Page/Dashboard/Students/StudentHome"));
 const StudentMarket = lazy(() =>
   import("./Page/Dashboard/Students/StudentMarket")
@@ -58,7 +42,6 @@ const StudentResults = lazy(() =>
   import("./Page/Dashboard/Students/StudentResults")
 );
 const SchoolDemo = lazy(() => import("./Page/Dashboard/Students/SchoolDemo"));
-
 const AdminDashboard = lazy(() =>
   import("./Page/Dashboard/Admins/AdminDashboard")
 );
@@ -71,7 +54,6 @@ const AdminProfile = lazy(() => import("./Page/Dashboard/Admins/AdminProfile"));
 const AdminsPayments = lazy(() =>
   import("./Page/Dashboard/Admins/AdminsPayments")
 );
-
 const SchoolsDashboard = lazy(() =>
   import("./Page/Dashboard/schools/SchoolsDashboard")
 );
@@ -113,6 +95,7 @@ const App = () => {
   const { userRole, loading: userLoading } = useUserContext();
   const [routeLoading, setRouteLoading] = useState(false);
   const [initialLoad, setInitialLoad] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -134,6 +117,36 @@ const App = () => {
 
     handleRouteChange();
   }, [location]);
+
+  // Add event listeners to block right-click and keyboard shortcuts
+  useEffect(() => {
+    // Block right-click
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+      return false;
+    };
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey) {
+        e.preventDefault();
+        return false;
+      }
+      if (e.key === "F12") {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    // Add event listeners
+    document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("keydown", handleKeyDown);
+
+    // Clean up event listeners on component unmount
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   const showLoader = initialLoad || userLoading || routeLoading;
 
   if (showLoader) {
@@ -141,11 +154,10 @@ const App = () => {
   }
 
   return (
-    <div
-      className="overflow-x-hidden font-Poppins "
-    >
+    <div className="overflow-x-hidden font-Poppins select-none">
       <Suspense fallback={<FullPageLoader />}>
         <Routes location={location} key={location.key}>
+          {/* Your existing routes remain unchanged */}
           <Route element={<LandingLay />}>
             <Route index element={<Home />} />
             <Route path="/serivisi" element={<Services />} />

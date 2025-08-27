@@ -69,7 +69,7 @@ const SchoolResults = () => {
       <h2 className="text-md text-center text-Total font-semibold mb-4">Ibizamini nakoze</h2>
 
       {!selectedExam ? (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-3">
           {exams.map((exam, index) => (
             <div
               key={index}
@@ -80,22 +80,24 @@ const SchoolResults = () => {
                 Type: <span className="capitalize">{exam.type}</span>
               </p>
               <p>Total Marks: {exam.totalPoints}</p>
-              <button
-                className="mt-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-800"
+              <div className="flex justify-center items-center">
+                <button
+                className="mt-2 px-2 py-1 bg-Total text-white rounded hover:bg-blue-500"
                 onClick={() => setSelectedExam(exam)}
               >
                 Reba Ibisubizo
               </button>
+              </div>
             </div>
           ))}
         </div>
       ) : (
         <div className="bg-gray-100 p-4 rounded-xl">
           <button
-            className="mb-4 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-800"
+            className="mb-4 px-3 py-1 bg-Total text-white rounded hover:bg-blue-500"
             onClick={() => setSelectedExam(null)}
           >
-            Paje y'ibizamini
+            Subira Inyuma
           </button>
           <h3 className="text-lg font-semibold mb-4">{selectedExam.title}</h3>
 

@@ -20,14 +20,11 @@ const SchoolDemo = () => {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `${ApiUrl}/accounts`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${ApiUrl}/accounts`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setAccount(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -57,7 +54,7 @@ const SchoolDemo = () => {
       (searchTerm === "" ||
         account.validIn.toLowerCase().includes(searchTerm.toLowerCase()) ||
         account.fees.toString().includes(searchTerm) ||
-        account.title.includes(searchTerm))
+        account.title.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   const totalPages = Math.ceil(filteredAccounts.length / accountsPerPage);
@@ -98,7 +95,7 @@ const SchoolDemo = () => {
         <div className="w-full px-3 md:flex justify-center items-center hidden md:bloc">
           <input
             type="search"
-            placeholder="---Ubwoko, igiciro, nimero byikizami---"
+            placeholder="---igiciro, nimero byikizami---"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="border-2 border-blue-500 p-2 rounded-xl w-full"
