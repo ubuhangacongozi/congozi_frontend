@@ -55,8 +55,6 @@ const StudentUnpaid = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  // Update unique filters when exam data changes
   useEffect(() => {
     if (exam.data && exam.data.length > 0) {
       const types = [
@@ -172,7 +170,7 @@ const StudentUnpaid = () => {
       const purchasedDataId = selectedExam._id;
       const paidItem = selectedExam.itemId;
 
-      const notificationMessage = `Dear Admin, ${userName} yishyuye ikizamini cya ${paidItem.title} (${paidItem.type}) amafaranga ${paidItem.fees} Rwf akoresheje telephone ${phoneUsed} (${ownerName}). Reba ko wayabonye kuri MoMo pay ya 072255 maze umuhe uburenganzira kuri iyi purchase ID: ${purchasedDataId}`;
+      const notificationMessage = `Dear Admin, ${userName} yishyuye ikizamini cya ${paidItem.title} (${paidItem.type}) amafaranga ${paidItem.fees} Rwf akoresheje telephone ${phoneUsed} (${ownerName}). Reba ko wayabonye kuri MoMo pay ya 072255 maze umuhe uburenganzira kuri iyi purchase ID: ${purchasedDataId}. Murakoze!!!!!`;
 
       await axios.post(
         `${ApiUrl}/notification`,

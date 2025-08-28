@@ -148,7 +148,7 @@ const SchoolMyExams = () => {
       const purchasedDataId = selectedAccount._id;
       const paidItem = selectedAccount.itemId;
 
-      const notificationMessage = `Dear Admin, Turakumenyesha ko ${userName} yishyuye konte ${paidItem.title} y'iminsi ${paidItem.validIn} amafaranga ${selectedAccount.amount} Rwf akoresheje telephone ${phoneUsed} ibaruye kuri ${ownerName}. Reba ko wayabonye kuri telephone nimero: 250 783 905 790 maze umuhe uburenganzira kuri iyi purchase Id: ${purchasedDataId}`;
+      const notificationMessage = `Dear Admin, Turakumenyesha ko ${userName} yishyuye konte ${paidItem.title} y'iminsi ${paidItem.validIn} amafaranga ${selectedAccount.amount} Rwf akoresheje telephone ${phoneUsed} ibaruye kuri ${ownerName}. Reba ko wayabonye kuri telephone nimero: 072255 maze umuhe uburenganzira kuri iyi purchase Id: ${purchasedDataId}. Murakoze!!!!!`;
       const noteTitle = `${userName} requests for approval`;
 
       await axios.post(
